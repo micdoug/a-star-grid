@@ -2,7 +2,7 @@
 
 const std::string kPathSpaceImage = "🚗\t";
 const std::string kObstacleSpaceImage = "⛰️\t";
-const std::string kEmptySpaceImage = "\t";
+const std::string kEmptySpaceImage = ".\t";
 const std::string kFinalSpaceImage = "🏁\t";
 const std::string kStartSpaceImage = "🚦\t";
 

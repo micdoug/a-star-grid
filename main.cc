@@ -3,12 +3,14 @@
 #include "grid.h"
 #include "print.h"
 #include "find_path.h"
+#include <unordered_set>
+#include <string>
 
 int main(int argc, char **argv)
 {
-    if (argc != 2)
+    if (argc != 6)
     {
-        std::cout << "Usage: a-star-grid <grid-input-file>" << std::endl;
+        std::cout << "Usage: a-star-grid <grid-input-file> <start_x> <start_y> <end_x> <end_y>" << std::endl;
         return 1;
     }
 
@@ -18,13 +20,19 @@ int main(int argc, char **argv)
         return 1;
     }
 
+    int begin_x = std::stoi(argv[2]);
+    int begin_y = std::stoi(argv[3]);
+    int end_x = std::stoi(argv[4]);
+    int end_y = std::stoi(argv[5]);
+
     const auto &grid = maybe_grid.value();
-
-    std::cout << grid << std::endl;
-
-    const auto result = find_path(0, 0, 2, 2, grid);
-
-    print_grid_result(grid, 0, 0, 2, 2, result);
-
+    const auto result = find_path(begin_x, begin_y, end_x, end_y, grid);
+    if (result.empty())
+    {
+        std::cout << "There is no path for the provided parameters." << std::endl;
+        return 0;
+    }
+    const std::unordered_set<GridSlot> result_set{result.begin(), result.end()};
+    print_grid_result(grid, begin_x, begin_y, end_x, end_y, result_set);
     return 0;
 }
